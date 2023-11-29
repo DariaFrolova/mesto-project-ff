@@ -26,7 +26,7 @@ const createCard = (item) => {
   return newCard;
 };
 
-// @todo: Функция удаления карточки
+// @todo: Функция удаления карточки.
 // Добавляем обработчик, получаем элемент, находим ближайший элемент card, удаляем его из DOM
 const removeCard = (evt) => {
   const target = evt.target;
