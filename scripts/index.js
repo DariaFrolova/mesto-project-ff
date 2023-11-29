@@ -19,13 +19,19 @@ const createCard = (item) => {
   cardImage.setAttribute("alt", item.name);
   cardTitle.textContent = item.name;
 
-  // @todo: Функция удаления карточки
-  // добавляем слушатель на кнопку удаления. При клике удаляем из DOM карточку.
-  deleteButton.addEventListener("click", () => {
-    newCard.remove();
-  });
-  // Возвращаем созданную карточку
+// добавляем обработчик события клика на кнопку удаления
+  deleteButton.addEventListener("click", removeCard);
+
+// возвращаем созданную карточку
   return newCard;
+};
+
+// @todo: Функция удаления карточки
+// Добавляем обработчик, получаем элемент, находим ближайший элемент card, удаляем его из DOM
+const removeCard = (evt) => {
+  const target = evt.target;
+  const card = target.closest(".card");
+  card.remove();
 };
 
 // @todo: Вывести карточки на страницу
