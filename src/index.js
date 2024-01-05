@@ -1,17 +1,18 @@
-import '../pages/index.css';
-import { initialCards } from '../src/cards.js';
 
-import addIcon from '../images/add-icon.svg'; 
-import avatar from '../images/avatar.jpg'; 
-import cardOne from '../images/card_1.jpg'; 
-import cardTwo from '../images/card_2.jpg'; 
-import cardThree from '../images/card_3.jpg'; 
-import close from '../images/close.svg'; 
-import deleteIcon from '../images/delete-icon.svg'; 
-import editIcon from '../images/edit-icon.svg'; 
-import likeActive from '../images/like-active.svg';
-import likeInactive from '../images/like-inactive.svg';
-import logo from '../images/logo.svg';
+import './pages/index.css';
+import { initialCards } from './cards.js';
+
+import addIcon from './images/add-icon.svg';
+import avatar from './images/avatar.jpg';
+import cardOne from './images/card_1.jpg';
+import cardTwo from './images/card_2.jpg'; 
+import cardThree from './images/card_3.jpg'; 
+import close from './images/close.svg'; 
+import deleteIcon from './images/delete-icon.svg'; 
+import editIcon from './images/edit-icon.svg'; 
+import likeActive from './images/like-active.svg';
+import likeInactive from './images/like-inactive.svg';
+import logo from './images/logo.svg';
 
 const images = [ 
   { name: 'add-Icon', link: addIcon },
@@ -68,6 +69,8 @@ const removeCard = (card) => {
 // попадет в конец родительского контейнера 
 const cards = initialCards.map((item) => createCard(item, removeCard));
 placesList.append(...cards);
+
+
 
 
 

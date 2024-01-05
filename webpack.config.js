@@ -1,7 +1,8 @@
 const path = require("path"); // подключаем path к конфигу вебпак
-const HtmlWebpackPlugin = require("html-webpack-plugin"); // подключите плагин
-const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // подключили плагин 
+const HtmlWebpackPlugin = require("html-webpack-plugin"); 
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); 
+// const HtmlLoader = require('html-loader'); //это для test: /\.html$/i 
 
 module.exports = {
   entry: { 
@@ -17,7 +18,6 @@ module.exports = {
     static: path.resolve(__dirname, "./dist"), // путь, куда "смотрит" режим разработчика
     compress: true, // это ускорит загрузку в режиме разработки
     port: 8080, // порт, чтобы открывать сайт по адресу localhost:8080, но можно поменять порт
-
     open: true, // сайт будет открываться сам при запуске npm run dev
   },
   module: {
@@ -32,6 +32,13 @@ module.exports = {
         test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
         type: 'asset/resource',
       },
+      // {
+      //   test: /\.html$/i,
+      //   loader: "html-loader",
+      //   options: {
+      //     interpolate: true, // включает возможность использования <%= require('...') %>
+      //   }
+      // },
       {
         // применять это правило только к CSS-файлам
         test: /\.css$/,
@@ -50,7 +57,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html' // template: './src/index.html' - так было в уроке 
+      template: './src/index.html' // template: './src/index.html' - так было в уроке 
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin() // подключение плагина для объединения файлов
