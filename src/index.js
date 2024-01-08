@@ -33,6 +33,7 @@ const cardTemplate = document.querySelector("#card-template").content;
 const templateCard = cardTemplate.querySelector(".card");
 // Находим в DOM место, в которое будут добавляться карточки
 const placesList = document.querySelector(".places__list");
+
 // Функция, создающая карточку из шаблона
 const createCard = (item, removeCard) => {
   // Клонируем шаблон
