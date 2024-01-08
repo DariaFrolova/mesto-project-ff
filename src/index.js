@@ -6,6 +6,7 @@ import {
   openPopup,
   closePopup,
   addNewCard,
+  closePopupOnEsc
 } from "./components/modal.js";
 export { placesList, popupTypeNewCard };
 
@@ -47,15 +48,6 @@ popupElements.forEach((popup) => {
   };
   popup.addEventListener("click", closePopupHandler);
 });
-
-//Закрывем попапы по нажатию на esc
-const closePopupOnEsc = (evt) => {
-  if (evt.key === "Escape") {
-    popupElements.forEach((popup) => {
-      closePopup(popup);
-    });
-  }
-};
 
 document.addEventListener("keydown", closePopupOnEsc);
 

@@ -1,4 +1,4 @@
-export { openImagePopup, openPopup, closePopup, addNewCard };
+export { openImagePopup, openPopup, closePopup, addNewCard, closePopupOnEsc };
 import { createCard, removeCard } from "../components/card.js";
 import { placesList, popupTypeNewCard } from "../index.js";
 
@@ -49,3 +49,13 @@ const addNewCard = (evt) => {
 };
 
 newPlaceFormPopup.addEventListener("submit", addNewCard);
+
+//Закрывем попапы по нажатию на esc
+const closePopupOnEsc = (evt) => {
+  if (evt.key === "Escape") {
+    const popupElements = document.querySelectorAll(".popup");
+    popupElements.forEach((popup) => {
+      closePopup(popup);
+    });
+  }
+};
