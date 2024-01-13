@@ -1,61 +1,44 @@
-export { openImagePopup, openPopup, closePopup, addNewCard, closePopupOnEsc };
 import { createCard, removeCard } from "../components/card.js";
-import { placesList, popupTypeNewCard } from "../index.js";
-
-//Функция для роткрытия модального окна с изображением и подписью
-const openImagePopup = (link, name) => {
-  const popupImage = document.querySelector(".popup_type_image");
-  const image = popupImage.querySelector(".popup__image");
-  const caption = popupImage.querySelector(".popup__caption");
-
-  image.setAttribute("src", link);
-  image.setAttribute("alt", name);
-  caption.textContent = name;
-
-  openPopup(popupImage);
-};
+import {
+  placesList,
+  popupTypeNewCard,
+  openImagePopup,
+  inputTypeCardName,
+} from "../index.js";
 
 //Открываем модальное окно
 const openPopup = (popup) => {
   popup.classList.add("popup_is-opened");
+  document.addEventListener("keydown", closePopupOnEsc);
 };
 
 //Закрывем модальное окно
 const closePopup = (popup) => {
   popup.classList.remove("popup_is-opened");
+  document.removeEventListener("keydown", closePopupOnEsc);
 };
 
-//Получаем элементы формы для добавления новой карточки и добавляем обработчик для отправки формы
-const inputTypeCardName = document.querySelector(
-  ".popup__input_type_card-name"
-);
-const inputTypeUrl = document.querySelector(".popup__input_type_url");
-const newPlaceFormPopup = document.querySelector("form[name='new-place']");
-
-const addNewCard = (evt) => {
-  evt.preventDefault();
-
-  const newCardData = {
-    name: inputTypeCardName.value,
-    link: inputTypeUrl.value,
+//Объявляем функцию для закрытия попапа; при выполнении вызывается closePopup
+const closePopupHandler = (popup) => {
+  const handler = (evt) => {
+    if (
+      evt.target === evt.currentTarget ||
+      evt.target.classList.contains("popup__close")
+    ) {
+      closePopup(popup);
+    }
   };
-
-  const newCard = createCard(newCardData, removeCard);
-  placesList.prepend(newCard);
-
-  closePopup(popupTypeNewCard);
-
-  newPlaceFormPopup.reset();
+  return handler;
 };
 
-newPlaceFormPopup.addEventListener("submit", addNewCard);
-
-//Закрывем попапы по нажатию на esc
+//Закрывем открытые попапы по нажатию на esc
 const closePopupOnEsc = (evt) => {
   if (evt.key === "Escape") {
-    const popupElements = document.querySelectorAll(".popup");
-    popupElements.forEach((popup) => {
-      closePopup(popup);
-    });
+    const openedPopup = document.querySelector(".popup_is-opened");
+    if (openedPopup) {
+      closePopup(openedPopup);
+    }
   }
 };
+
+export { openPopup, closePopup, closePopupOnEsc, closePopupHandler };

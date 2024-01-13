@@ -2,13 +2,11 @@ import "./pages/index.css";
 import { initialCards } from "./components/cards.js";
 import { createCard, removeCard } from "./components/card.js";
 import {
-  openImagePopup,
   openPopup,
   closePopup,
-  addNewCard,
-  closePopupOnEsc
+  closePopupOnEsc,
+  closePopupHandler,
 } from "./components/modal.js";
-export { placesList, popupTypeNewCard };
 
 const placesList = document.querySelector(".places__list");
 
@@ -27,33 +25,19 @@ const popupInputTypeDescription = popupTypeEdit.querySelector(
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const popupElements = document.querySelectorAll(".popup");
-const form = popupTypeEdit.querySelector(".popup__form");
+const popupForm = popupTypeEdit.querySelector(".popup__form");
 
-//Добавляем обработчик события на кнопку редактирования профиля
-profileEditButton.addEventListener("click", () => {
+//Объявляем функцию с открытием окна редактирования имени и специальности. Добавляем слушатель
+const openProfileEditPopup = () => {
   openPopup(popupTypeEdit);
   popupInputTypeName.value = profileTitle.textContent;
   popupInputTypeDescription.value = profileDescription.textContent;
-});
-
-//Добавляем обработчик на модальное окно
-popupElements.forEach((popup) => {
-  const closePopupHandler = (evt) => {
-    if (
-      evt.target === evt.currentTarget ||
-      evt.target.classList.contains("popup__close")
-    ) {
-      closePopup(popup);
-    }
-  };
-  popup.addEventListener("click", closePopupHandler);
-});
-
-document.addEventListener("keydown", closePopupOnEsc);
+};
+profileEditButton.addEventListener("click", openProfileEditPopup);
 
 // Функция для обработки отправки формы редактирования профиля,
-// обновляет информацию о профиле и закрывает модальное окно после сохранения изменений
-const changeProfFormSubmit = (evt) => {
+// обновляет инфо о профиле и закрывает модальное окно после сохранения изменений
+const handleProfileChangeSubmit = (evt) => {
   evt.preventDefault();
   const newName = popupInputTypeName.value;
   const newDescription = popupInputTypeDescription.value;
@@ -62,7 +46,7 @@ const changeProfFormSubmit = (evt) => {
   closePopup(popupTypeEdit);
 };
 
-form.addEventListener("submit", changeProfFormSubmit);
+popupForm.addEventListener("submit", handleProfileChangeSubmit);
 
 //Добавляем обработчик на кнопку добавления новой карточки
 const profileAddButton = document.querySelector(".profile__add-button");
@@ -70,7 +54,48 @@ profileAddButton.addEventListener("click", () => openPopup(popupTypeNewCard));
 
 const popupTypeNewCard = document.querySelector(".popup_type_new-card");
 
-// Функция для обработки клика по карточке
-const handleCardClick = (link, name) => {
-  openImagePopup(link, name);
+// Для каждого элемента popup добавляем обработчик, по которому закроется попап по клику
+popupElements.forEach((popup) => {
+  const handler = closePopupHandler(popup);
+  popup.addEventListener("click", handler);
+});
+
+const popupImage = document.querySelector(".popup_type_image");
+const image = popupImage.querySelector(".popup__image");
+const caption = popupImage.querySelector(".popup__caption");
+
+const openImagePopup = (link, name) => {
+  image.src = link;
+  image.alt = name;
+  caption.textContent = name;
+
+  openPopup(popupImage);
 };
+
+// Получаем элементы ввода и форму. Добавляем обоаботчик отправки формы. Извлекаем данные из полей и создаем новую карточку
+const inputTypeCardName = document.querySelector(
+  ".popup__input_type_card-name"
+);
+const inputTypeUrl = document.querySelector(".popup__input_type_url");
+const newPlaceFormPopup = document.querySelector("form[name='new-place']");
+
+const handleNewCardAdd = (evt) => {
+  evt.preventDefault();
+
+  const newCardData = {
+    name: inputTypeCardName.value,
+    link: inputTypeUrl.value,
+  };
+
+  const newCard = createCard(newCardData, removeCard);
+  // Добавляем новую карточку в начало списка 
+  placesList.prepend(newCard);
+  // Закрываем попап для добавления новой карточки
+  closePopup(popupTypeNewCard);
+  // Сбрасываем поля ввода формы
+  newPlaceFormPopup.reset();
+};
+
+newPlaceFormPopup.addEventListener("submit", handleNewCardAdd);
+
+export { placesList, popupTypeNewCard, openImagePopup, handleNewCardAdd };
