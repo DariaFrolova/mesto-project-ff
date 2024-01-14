@@ -1,19 +1,35 @@
 import "./pages/index.css";
 import { initialCards } from "./components/cards.js";
-import { createCard, removeCard } from "./components/card.js";
+import { createCard, removeCard, likeCard } from "./components/card.js";
 import {
   openPopup,
   closePopup,
   closePopupOnEsc,
-  closePopupHandler,
+  createClosePopupHandler,
 } from "./components/modal.js";
 
-const placesList = document.querySelector(".places__list");
+const popupImage = document.querySelector(".popup_type_image");
+const image = popupImage.querySelector(".popup__image");
+const caption = popupImage.querySelector(".popup__caption");
 
-//Созданные карточки помещаем в начало списка
-const cards = initialCards.map((item) => createCard(item, removeCard));
-placesList.append(...cards);
+// функция открытия попапа с изображением
+const openImagePopup = (link, name) => {
+  console.log("Привет, я тут");
+  image.src = link;
+  image.alt = name;
+  caption.textContent = name;
 
+  openPopup(popupImage);
+};
+
+// Получаем контейнер и помещаем новую карточку в начало списка
+const cardsContainer = document.querySelector(".places__list");
+const cards = initialCards.map((item) =>
+  createCard(item, removeCard, likeCard, openImagePopup)
+);
+cardsContainer.append(...cards);
+
+// Получаем элементы для редактирования профиля
 const profileEditButton = document.querySelector(".profile__edit-button");
 const popupTypeEdit = document.querySelector(".popup_type_edit");
 const popupInputTypeName = popupTypeEdit.querySelector(
@@ -25,9 +41,9 @@ const popupInputTypeDescription = popupTypeEdit.querySelector(
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const popupElements = document.querySelectorAll(".popup");
-const popupForm = popupTypeEdit.querySelector(".popup__form");
+const profileForm = popupTypeEdit.querySelector(".popup__form");
 
-//Объявляем функцию с открытием окна редактирования имени и специальности. Добавляем слушатель
+// Функция редактирования профиля
 const openProfileEditPopup = () => {
   openPopup(popupTypeEdit);
   popupInputTypeName.value = profileTitle.textContent;
@@ -35,8 +51,6 @@ const openProfileEditPopup = () => {
 };
 profileEditButton.addEventListener("click", openProfileEditPopup);
 
-// Функция для обработки отправки формы редактирования профиля,
-// обновляет инфо о профиле и закрывает модальное окно после сохранения изменений
 const handleProfileChangeSubmit = (evt) => {
   evt.preventDefault();
   const newName = popupInputTypeName.value;
@@ -46,7 +60,7 @@ const handleProfileChangeSubmit = (evt) => {
   closePopup(popupTypeEdit);
 };
 
-popupForm.addEventListener("submit", handleProfileChangeSubmit);
+profileForm.addEventListener("submit", handleProfileChangeSubmit);
 
 //Добавляем обработчик на кнопку добавления новой карточки
 const profileAddButton = document.querySelector(".profile__add-button");
@@ -56,21 +70,9 @@ const popupTypeNewCard = document.querySelector(".popup_type_new-card");
 
 // Для каждого элемента popup добавляем обработчик, по которому закроется попап по клику
 popupElements.forEach((popup) => {
-  const handler = closePopupHandler(popup);
+  const handler = createClosePopupHandler(popup);
   popup.addEventListener("click", handler);
 });
-
-const popupImage = document.querySelector(".popup_type_image");
-const image = popupImage.querySelector(".popup__image");
-const caption = popupImage.querySelector(".popup__caption");
-
-const openImagePopup = (link, name) => {
-  image.src = link;
-  image.alt = name;
-  caption.textContent = name;
-
-  openPopup(popupImage);
-};
 
 // Получаем элементы ввода и форму. Добавляем обоаботчик отправки формы. Извлекаем данные из полей и создаем новую карточку
 const inputTypeCardName = document.querySelector(
@@ -79,6 +81,7 @@ const inputTypeCardName = document.querySelector(
 const inputTypeUrl = document.querySelector(".popup__input_type_url");
 const newPlaceFormPopup = document.querySelector("form[name='new-place']");
 
+// Функция для работы с новой карточкой
 const handleNewCardAdd = (evt) => {
   evt.preventDefault();
 
@@ -87,9 +90,9 @@ const handleNewCardAdd = (evt) => {
     link: inputTypeUrl.value,
   };
 
-  const newCard = createCard(newCardData, removeCard);
-  // Добавляем новую карточку в начало списка 
-  placesList.prepend(newCard);
+  const newCard = createCard(newCardData, removeCard, likeCard, openImagePopup);
+  // Добавляем новую карточку в начало списка
+  cardsContainer.prepend(newCard);
   // Закрываем попап для добавления новой карточки
   closePopup(popupTypeNewCard);
   // Сбрасываем поля ввода формы
@@ -98,4 +101,4 @@ const handleNewCardAdd = (evt) => {
 
 newPlaceFormPopup.addEventListener("submit", handleNewCardAdd);
 
-export { placesList, popupTypeNewCard, openImagePopup, handleNewCardAdd };
+export { cardsContainer, popupTypeNewCard, openImagePopup, handleNewCardAdd };

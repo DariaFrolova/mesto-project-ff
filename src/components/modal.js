@@ -1,8 +1,7 @@
 import { createCard, removeCard } from "../components/card.js";
 import {
-  placesList,
+  cardsContainer,
   popupTypeNewCard,
-  openImagePopup,
   inputTypeCardName,
 } from "../index.js";
 
@@ -19,7 +18,7 @@ const closePopup = (popup) => {
 };
 
 //Объявляем функцию для закрытия попапа; при выполнении вызывается closePopup
-const closePopupHandler = (popup) => {
+const createClosePopupHandler = (popup) => {
   const handler = (evt) => {
     if (
       evt.target === evt.currentTarget ||
@@ -41,4 +40,4 @@ const closePopupOnEsc = (evt) => {
   }
 };
 
-export { openPopup, closePopup, closePopupOnEsc, closePopupHandler };
+export { openPopup, closePopup, closePopupOnEsc, createClosePopupHandler };

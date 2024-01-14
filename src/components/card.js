@@ -1,13 +1,18 @@
-import {
-  openImagePopup as externalOpenImagePopup,
-  handleNewCardAdd,
-} from "../index.js";
+import { openImagePopup, handleNewCardAdd } from "../index.js";
 import { openPopup, closePopup } from "../components/modal.js";
 
 const cardTemplate = document.querySelector("#card-template");
 const templateCard = cardTemplate.content.querySelector(".card");
 
-const createCard = (item, removeCard, openImagePopup, likeCard) => {
+const likeCard = (button) => {
+  button.classList.toggle("card__like-button_is-active");
+};
+
+const removeCard = (card) => {
+  card.remove();
+};
+
+const createCard = (item, removeCard, likeCard, openImagePopup) => {
   const newCard = templateCard.cloneNode(true);
   const cardImage = newCard.querySelector(".card__image");
   const cardTitle = newCard.querySelector(".card__title");
@@ -19,11 +24,11 @@ const createCard = (item, removeCard, openImagePopup, likeCard) => {
   cardTitle.textContent = item.name;
 
   likeButton.addEventListener("click", () => {
-    like(likeButton);
+    likeCard(likeButton);
   });
 
   cardImage.addEventListener("click", () => {
-    externalOpenImagePopup(item.link, item.name);
+    openImagePopup(item.link, item.name);
   });
 
   deleteButton.addEventListener("click", () => {
@@ -33,16 +38,4 @@ const createCard = (item, removeCard, openImagePopup, likeCard) => {
   return newCard;
 };
 
-const likeCard = (button) => {
-  button.classList.toggle("card__like-button_is-active");
-};
-
-const like = (button) => {
-  button.classList.toggle("card__like-button_is-active");
-};
-
-const removeCard = (card) => {
-  card.remove();
-};
-
-export { createCard, removeCard };
+export { createCard, removeCard, likeCard };
