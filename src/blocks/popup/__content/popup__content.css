@@ -17,3 +17,8 @@
     padding: 30px 20px;
   }
 }
+
+/* новая аватарка */
+.popup__content-avatar {
+  min-height: 200px;
+}

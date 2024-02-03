@@ -20,3 +20,19 @@
     line-height: 15px;
   }
 }
+
+/* уведомления об ошибке, перепроверить*/
+
+.form__input-error {
+  visibility: hidden;
+}
+
+.popup__error_visible {
+  visibility: visible;
+  color: red;
+}
+
+/* const validationConfig  */
+.popup__input_type_error {
+  border-bottom-color: red;
+}

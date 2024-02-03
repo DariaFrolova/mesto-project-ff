@@ -26,7 +26,7 @@ const createCard = (item, removeCard, likeCard, openImagePopup) => {
   likeButton.addEventListener("click", () => {
     likeCard(likeButton);
   });
-
+  
   cardImage.addEventListener("click", () => {
     openImagePopup(item.link, item.name);
   });
