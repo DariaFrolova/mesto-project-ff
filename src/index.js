@@ -8,13 +8,14 @@ import {
   createClosePopupHandler,
 } from "./components/modal.js";
 
+import { enableValidation, clearValidation } from "./components/validation.js";
+
 const popupImage = document.querySelector(".popup_type_image");
 const image = popupImage.querySelector(".popup__image");
 const caption = popupImage.querySelector(".popup__caption");
 
 // функция открытия попапа с изображением
 const openImagePopup = (link, name) => {
-  console.log("Привет, я тут");
   image.src = link;
   image.alt = name;
   caption.textContent = name;
@@ -101,4 +102,23 @@ const handleNewCardAdd = (evt) => {
 
 newPlaceFormPopup.addEventListener("submit", handleNewCardAdd);
 
-export { cardsContainer, popupTypeNewCard, openImagePopup, handleNewCardAdd };
+// включение валидации вызовом enableValidation
+// все настройки передаются при вызове
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
+enableValidation(validationConfig);
+
+export {
+  cardsContainer,
+  popupTypeNewCard,
+  openImagePopup,
+  handleNewCardAdd,
+  validationConfig,
+};

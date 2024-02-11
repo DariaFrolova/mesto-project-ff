@@ -3,6 +3,7 @@ import {
   cardsContainer,
   popupTypeNewCard,
   inputTypeCardName,
+  validationConfig,
 } from "../index.js";
 
 //Открываем модальное окно
