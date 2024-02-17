@@ -47,7 +47,7 @@
           <form 
           class="popup__form" 
           name="edit-profile" 
-          novalidate>
+          >
             <input 
             type="text" 
             id="name-input" 
@@ -60,6 +60,16 @@
             required
             >
             <span class="form__input-error name-input-error"></span> 
+            <!-- <input type="text" 
+            id="description-input" 
+            class="popup__input edit-popup__input popup__input_type_description" 
+            placeholder="Занятие"  
+            minlength ="2" 
+            maxlength="200" 
+            pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$"
+            data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+            required
+            > -->
             <input type="text" 
             id="description-input" 
             class="popup__input edit-popup__input popup__input_type_description" 
@@ -79,7 +89,7 @@
         <div class="popup__content">
           <button type="button" class="popup__close"></button>
           <h3 class="popup__title">Новое место</h3>
-          <form class="popup__form" name="new-place" novalidate>
+          <form class="popup__form" name="new-place" >
             <input 
             type="text" 
             id="place-name-input" 
