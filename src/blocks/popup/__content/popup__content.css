@@ -9,6 +9,11 @@
   padding: 34px 36px;
 }
 
+/* новая аватарка */
+.popup__content-avatar {
+  min-height: 200px;
+}
+
 @media screen and (max-width: 568px) {
   .popup__content {
     width: 100%;
@@ -16,9 +21,4 @@
     margin-top: 40px;
     padding: 30px 20px;
   }
-}
-
-/* новая аватарка */
-.popup__content-avatar {
-  min-height: 200px;
 }

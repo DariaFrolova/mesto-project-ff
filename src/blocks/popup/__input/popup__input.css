@@ -21,8 +21,7 @@
   }
 }
 
-/* уведомления об ошибке, перепроверить*/
-
+/* уведомления об ошибке*/
 .form__input-error {
   visibility: hidden;
 }
@@ -32,7 +31,7 @@
   color: red;
 }
 
-/* const validationConfig  */
+/* const validationConfig */
 .popup__input_type_error {
   border-bottom-color: red;
 }

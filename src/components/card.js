@@ -1,5 +1,12 @@
 import { openImagePopup, handleNewCardAdd } from "../index.js";
 import { openPopup, closePopup } from "../components/modal.js";
+// import {
+//   deleteYouCard,
+//   likeSomeCard,
+//   deleteLikeSomeCard,
+// } from "../components/api.js";
+
+// из api интегрируем функции по удаленю карточки, лайку и снятия лайка
 
 const cardTemplate = document.querySelector("#card-template");
 const templateCard = cardTemplate.content.querySelector(".card");
@@ -19,6 +26,8 @@ const createCard = (item, removeCard, likeCard, openImagePopup) => {
   const deleteButton = newCard.querySelector(".card__delete-button");
   const likeButton = newCard.querySelector(".card__like-button");
 
+  const cardLikes = newCard.querySelector(".card__like-number");
+
   cardImage.src = item.link;
   cardImage.alt = item.name;
   cardTitle.textContent = item.name;
@@ -26,7 +35,7 @@ const createCard = (item, removeCard, likeCard, openImagePopup) => {
   likeButton.addEventListener("click", () => {
     likeCard(likeButton);
   });
-  
+
   cardImage.addEventListener("click", () => {
     openImagePopup(item.link, item.name);
   });

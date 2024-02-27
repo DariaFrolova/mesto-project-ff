@@ -9,6 +9,14 @@ import {
 } from "./components/modal.js";
 
 import { enableValidation, clearValidation } from "./components/validation.js";
+// import {
+//   getInitialCards,
+//   updateInitialCards,
+//   deleteCard,
+//   getProfileInfo,
+//   updateProfileInfo,
+//   changeAvatar,
+// } from "./components/api.js";
 
 const popupImage = document.querySelector(".popup_type_image");
 const image = popupImage.querySelector(".popup__image");

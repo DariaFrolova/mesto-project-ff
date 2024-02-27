@@ -1,8 +1,12 @@
+/* Добавлен контроль ширины текста  */
 .profile__description {
   font-size: 18px;
   line-height: 22px;
   grid-area: description;
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @media screen and (max-width: 568px) {
