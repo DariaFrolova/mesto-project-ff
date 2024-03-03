@@ -18,9 +18,7 @@ export const getInitialCards = () => {
   return fetch(`${configApi.baseUrl}/cards`, {
     method: "GET",
     headers: configApi.headers,
-  }).then((res) => {
-    return handleResponse(res);
-  });
+  }).then((res) => handleResponse(res));
 };
 
 export const updateInitialCards = (cardName, cardLink) => {
@@ -31,44 +29,20 @@ export const updateInitialCards = (cardName, cardLink) => {
       name: cardName,
       link: cardLink,
     }),
-  }).then((res) => {
-    return handleResponse(res);
-  });
+  }).then((res) => handleResponse(res));
 };
 
 export const deleteCard = (cardId) => {
   return fetch(`${configApi.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
     headers: configApi.headers,
-  }).then((res) => {
-    return handleResponse(res);
-  });
-};
-
-export const likeCard = (cardId) => {
-  return fetch(`${configApi.baseUrl}/cards/likes/${cardId}`, {
-    method: "PUT",
-    headers: configApi.headers,
-  }).then((res) => {
-    return handleResponse(res);
-  });
-};
-
-export const dislikeCard = (cardId) => {
-  return fetch(`${configApi.baseUrl}/cards/likes/${cardId}`, {
-    method: "DELETE",
-    headers: configApi.headers,
-  }).then((res) => {
-    return handleResponse(res);
-  });
+  }).then((res) => handleResponse(res));
 };
 
 export const getProfileInfo = () => {
   return fetch(`${configApi.baseUrl}/users/me`, {
     headers: configApi.headers,
-  }).then((res) => {
-    return handleResponse(res);
-  });
+  }).then((res) => handleResponse(res));
 };
 
 export const updateProfileInfo = (newNameProfile, newAboutProfile) => {
@@ -79,9 +53,7 @@ export const updateProfileInfo = (newNameProfile, newAboutProfile) => {
       name: newNameProfile,
       about: newAboutProfile,
     }),
-  }).then((res) => {
-    return handleResponse(res);
-  });
+  }).then((res) => handleResponse(res));
 };
 
 export const changeAvatar = (url) => {
@@ -91,7 +63,19 @@ export const changeAvatar = (url) => {
     body: JSON.stringify({
       avatar: url,
     }),
-  }).then((res) => {
-    return handleResponse(res);
-  });
+  }).then((res) => handleResponse(res));
+};
+
+export const addLikeRequest = (cardId) => {
+  return fetch(`${configApi.baseUrl}/cards/likes/${cardId}`, {
+    method: "PUT",
+    headers: configApi.headers,
+  }).then((res) => handleResponse(res));
+};
+
+export const removeLikeRequest = (cardId) => {
+  return fetch(`${configApi.baseUrl}/cards/likes/${cardId}`, {
+    method: "DELETE",
+    headers: configApi.headers,
+  }).then((res) => handleResponse(res));
 };
