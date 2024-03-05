@@ -19,6 +19,7 @@ import {
   changeAvatar,
 } from "./components/api.js";
 
+// export const myID = '';
 // Валидация
 const validationConfig = {
   formSelector: ".popup__form",
@@ -80,6 +81,16 @@ Promise.all([getInitialCards(), getProfileInfo()])
         openImagePopup,
         myID
       );
+    // results[0].forEach((card) => {
+    //   const newCard = createCard(card, (card) => {
+    //     removeCard(card, myID);
+    //   },
+    //   (likeButton, cardId, cardLikes) => {
+    //     likeCard(likeButton, cardId, cardLikes, myID);
+    //   },
+    //   () => {
+    //     openImagePopup();
+    //   });
       cardsContainer.append(newCard);
     });
   })
