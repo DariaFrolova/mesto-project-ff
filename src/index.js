@@ -17,6 +17,8 @@ import {
   getProfileInfo,
   updateProfileInfo,
   changeAvatar,
+  removeLikeRequest,
+  addLikeRequest,
 } from "./components/api.js";
 
 // export const myID = '';
@@ -79,18 +81,12 @@ Promise.all([getInitialCards(), getProfileInfo()])
         removeCard,
         likeCard,
         openImagePopup,
-        myID
+        myID,
+        addLikeRequest,
+        removeLikeRequest,
+        deleteCard
       );
-    // results[0].forEach((card) => {
-    //   const newCard = createCard(card, (card) => {
-    //     removeCard(card, myID);
-    //   },
-    //   (likeButton, cardId, cardLikes) => {
-    //     likeCard(likeButton, cardId, cardLikes, myID);
-    //   },
-    //   () => {
-    //     openImagePopup();
-    //   });
+
       cardsContainer.append(newCard);
     });
   })

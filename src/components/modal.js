@@ -1,10 +1,10 @@
-import { createCard, removeCard } from "../components/card.js";
-import {
-  cardsContainer,
-  popupTypeNewCard,
-  inputTypeCardName,
-  validationConfig,
-} from "../index.js";
+// import { createCard, removeCard } from "../components/card.js";
+// import {
+//   cardsContainer,
+//   popupTypeNewCard,
+//   inputTypeCardName,
+//   validationConfig,
+// } from "../index.js";
 
 
 //Открываем модальное окно
