@@ -1,16 +1,7 @@
-// import { createCard, removeCard } from "../components/card.js";
-// import {
-//   cardsContainer,
-//   popupTypeNewCard,
-//   inputTypeCardName,
-//   validationConfig,
-// } from "../index.js";
-
-
 //Открываем модальное окно
 const openPopup = (popup) => {
-  popup.classList.add("popup_is-opened");
   document.addEventListener("keydown", closePopupOnEsc);
+  popup.classList.add("popup_is-opened");
 };
 
 //Закрывем модальное окно
@@ -43,5 +34,3 @@ const closePopupOnEsc = (evt) => {
 };
 
 export { openPopup, closePopup, closePopupOnEsc, createClosePopupHandler };
-
-

@@ -52,24 +52,27 @@ const toggleButtonState = (validationConfig, inputList, buttonElement) => {
   );
 };
 
-// добавляем слушатели на инпуты
+// устанавливаем слушатели на элементы формы для валидации в реальном времени и активации кнопки отправки формы
 const setEventListeners = (
   validationConfig,
   formElement,
   buttonElement,
   inputList
 ) => {
-  const handleInput = (inputElement) => {
+  inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       checkInputValidity(formElement, inputElement, validationConfig);
       toggleButtonState(validationConfig, inputList, buttonElement);
+      const isActive = !buttonElement.disabled;
+      buttonElement.classList.toggle(
+        validationConfig.activeButtonClass,
+        isActive
+      );
     });
-  };
-
-  inputList.forEach(handleInput);
+  });
 };
 
-// Функция для очистки состояния валидации формы и сокрытия сообщений об ошибке
+// функция очистки формы
 const clearValidation = (validationConfig, formElement) => {
   const inputList = Array.from(
     formElement.querySelectorAll(validationConfig.inputSelector)
@@ -77,19 +80,16 @@ const clearValidation = (validationConfig, formElement) => {
   const buttonElement = formElement.querySelector(
     validationConfig.submitButtonSelector
   );
-
   buttonElement.disabled = true;
   buttonElement.classList.add(validationConfig.inactiveButtonClass);
-
   inputList.forEach((inputElement) => {
     hideInputError(formElement, inputElement, validationConfig);
   });
 };
 
-// валидация формы
+// функция, добавляющая интерактивную валидацию на каждую форму страницы
 const enableValidation = (validationConfig) => {
   const formList = document.querySelectorAll(validationConfig.formSelector);
-
   formList.forEach((formElement) => {
     const buttonElement = formElement.querySelector(
       validationConfig.submitButtonSelector
@@ -97,20 +97,15 @@ const enableValidation = (validationConfig) => {
     const inputList = Array.from(
       formElement.querySelectorAll(validationConfig.inputSelector)
     );
-
-    const handleInput = (inputElement) => {
+    inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         checkInputValidity(formElement, inputElement, validationConfig);
         toggleButtonState(validationConfig, inputList, buttonElement);
       });
-    };
-
-    inputList.forEach(handleInput);
-
+    });
     formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
-
     toggleButtonState(validationConfig, inputList, buttonElement);
   });
 };
